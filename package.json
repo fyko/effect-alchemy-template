@@ -8,14 +8,15 @@
   ],
   "type": "module",
   "scripts": {
-    "check": "vp check && pnpm test",
+    "check": "vp check && knip && pnpm test",
     "prepare": "effect-tsgo patch --oxlint",
     "ready": "vp run check",
     "test": "vp run -r test",
     "dev": "vp run @template/api#dev",
     "plan:production": "vp run @template/api#plan:production",
     "deploy:production": "vp run @template/api#deploy:production",
-    "destroy:production": "vp run @template/api#destroy:production"
+    "destroy:production": "vp run @template/api#destroy:production",
+    "knip": "knip"
   },
   "devDependencies": {
     "@effect/platform-node": "4.0.5",
@@ -24,6 +25,8 @@
     "@types/node": "26.6.5",
     "alchemy": "2.0.0-beta.83",
     "effect": "4.0.5",
+    "eslint-config-neon": "0.5.4",
+    "knip": "6.41.0",
     "oxlint": "1.88.0",
     "typescript": "7.0.2",
     "vite": "npm:@voidzero-dev/vite-plus-core@1.3.0",

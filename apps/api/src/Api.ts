@@ -1,17 +1,17 @@
 import { Effect, Layer, Schema } from "effect";
 import { HttpApi, HttpApiBuilder, HttpApiEndpoint, HttpApiGroup } from "effect/http-api";
 
-/** Liveness payload returned by `GET /health`. */
+/** Liveness payload returned by `GET /health`. @public */
 export class Health extends Schema.Class<Health>("Health")({
   status: Schema.Literal("ok"),
 }) {}
 
-/** Operational endpoints that every deployment exposes. */
+/** Operational endpoints that every deployment exposes. @public */
 export class SystemGroup extends HttpApiGroup.make("System").add(
   HttpApiEndpoint.get("health", "/health", { success: Health }),
 ) {}
 
-/** Public HTTP contract served by the API Worker. */
+/** Public HTTP contract served by the API Worker. @public */
 export class Api extends HttpApi.make("Api").add(SystemGroup) {}
 
 /** Handlers for the System group. */
