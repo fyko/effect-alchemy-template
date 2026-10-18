@@ -70,8 +70,9 @@ compiler inside a JavaScript plugin.
 
 Review consumers across production, tests, declarations, re-exports, package entrypoints,
 type-only imports, dynamic loading, and external SDK contracts. Remove an export only when that
-evidence shows it is private and unused. Prefer an existing workspace-aware tool if this recurs;
-do not treat ordinary unused-variable results as proof that an export has no consumer.
+evidence shows it is private and unused. Knip (`knip.jsonc`, run by `pnpm check`) is the installed
+workspace-aware tool. Tag a deliberate external contract `@public` in its JSDoc rather than adding
+a knip ignore; do not treat ordinary unused-variable results as proof that an export has no consumer.
 
 ## Complexity review
 

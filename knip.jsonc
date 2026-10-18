@@ -1,0 +1,14 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  // Mirrors the lint ignore list: upstream mirrors and vendored code are not ours to prune.
+  "ignore": ["repos/**", "tools/oxlint/anti-slop/**"],
+  // `effect-tsgo patch --oxlint` (the `prepare` script) patches this root install; nothing imports it.
+  "ignoreDependencies": ["oxlint"],
+  "workspaces": {
+    "apps/*": {
+      // Alchemy loads `alchemy.run.ts`, which references the Worker module by `import.meta.url`.
+      "entry": ["alchemy.run.ts", "src/Worker.ts"],
+      "project": ["**/*.ts"],
+    },
+  },
+}

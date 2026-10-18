@@ -1,12 +1,13 @@
 import { recommended as effectRecommended } from "@effect/tsgo/oxlint-presets";
 import { defineConfig } from "vite-plus";
+import { common, edge, module, typescript } from "eslint-config-neon/oxlint";
 
 const ignorePatterns = [".agents/**", ".claude/**", "repos/**", "tools/oxlint/anti-slop/**"];
 
 export default defineConfig({
   fmt: { ignorePatterns },
   lint: {
-    extends: [effectRecommended],
+    extends: [common, typescript, module, edge, effectRecommended],
     ignorePatterns,
     jsPlugins: [
       { name: "vite-plus", specifier: "vite-plus/oxlint-plugin" },
@@ -14,6 +15,15 @@ export default defineConfig({
       { name: "anti-slop-effect", specifier: "./tools/oxlint/anti-slop/effect/index.ts" },
     ],
     rules: {
+      // Neon overrides. `Effect.gen(function* () {})` is the Effect idiom; naming every generator is noise.
+      "func-names": "off",
+      // Property signatures check parameters contravariantly and accept `readonly`; method signatures do neither.
+      "typescript/method-signature-style": ["error", "property"],
+      // Truthiness checks on strings and numbers hide the empty-string and zero cases.
+      "typescript/strict-boolean-expressions": [
+        "error",
+        { allowString: false, allowNumber: false },
+      ],
       "oxc/no-accumulating-spread": "error",
       "anti-slop/no-array-filter-map": "error",
       "anti-slop/no-reduce-accumulator-copy": "error",
